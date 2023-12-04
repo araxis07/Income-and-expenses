@@ -1,9 +1,10 @@
 const transactions = JSON.parse(localStorage.getItem("transactions")) || [];
 
-const formatter = new Intl.NumberFormat("en-US", {
+const formatter = new Intl.NumberFormat("th-TH", {
   style: "currency",
-  currency: "USD",
+  currency: "thb",
   signDisplay: "always",
+  
 });
 
 const list = document.getElementById("transactionList");
@@ -26,9 +27,11 @@ function updateTotal() {
 
   const balanceTotal = incomeTotal - expenseTotal;
 
-  balance.textContent = formatter.format(balanceTotal).substring(1);
+  balance.textContent = formatter.format(balanceTotal);
   income.textContent = formatter.format(incomeTotal);
   expense.textContent = formatter.format(expenseTotal * -1);
+
+  
 }
 
 function renderList() {
@@ -88,7 +91,7 @@ function addTransaction(e) {
     name: formData.get("name"),
     amount: parseFloat(formData.get("amount")),
     date: new Date(formData.get("date")),
-    type: "on" === formData.get("type") ? "income" : "expense",
+    type: form.type.checked ? "expense" : "income",
   });
 
   this.reset();
