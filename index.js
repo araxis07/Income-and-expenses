@@ -4,7 +4,7 @@ const formatter = new Intl.NumberFormat("th-TH", {
   style: "currency",
   currency: "thb",
   signDisplay: "always",
-  
+  currencyDisplay: "symbol",
 });
 
 const list = document.getElementById("transactionList");
@@ -27,11 +27,35 @@ function updateTotal() {
 
   const balanceTotal = incomeTotal - expenseTotal;
 
-  balance.textContent = formatter.format(balanceTotal);
-  income.textContent = formatter.format(incomeTotal);
-  expense.textContent = formatter.format(expenseTotal * -1);
+  // Format the Total Balance with the currency symbol at the end
+  const formattedBalance = (balanceTotal === 0 ? "" : (balanceTotal < 0 ? "-" : "+")) +
+  formatter.format(Math.abs(balanceTotal)).replace(/^.*?(\d{1})/, "$1") +
+  "฿";
 
-  
+  // Format the Income with the currency symbol at the end
+  const formattedIncome = (incomeTotal === 0 ? "" : (incomeTotal < 0 ? "-" : "+")) +
+  formatter.format(Math.abs(incomeTotal)).replace(/^.*?(\d{1})/, "$1") +
+  "฿";
+
+  // Format the Expnse with the currency symbol at the end
+  const formattedExpense = (expenseTotal === 0 ? "" : (expenseTotal > 0 ? "-" : "+")) +
+  formatter.format(Math.abs(expenseTotal)).replace(/^.*?(\d{1})/, "$1") +
+  "฿";
+
+  balance.textContent = formattedBalance;
+  income.textContent = formattedIncome;
+  expense.textContent = formattedExpense;
+
+  // Get the header element
+  const header = document.querySelector("header");
+
+  // Change background color based on the Total Balance value
+  if (balanceTotal < 0) {
+    header.style.backgroundColor = "red";
+  } else {
+    header.style.backgroundColor = "var(--main-color)";
+  }
+
 }
 
 function renderList() {
@@ -44,7 +68,11 @@ function renderList() {
   }
 
   transactions.forEach(({ id, name, amount, date, type }) => {
-    const sign = "income" === type ? 1 : -1;
+    const sign = type === "income" ? "+" : "-";
+    const formattedAmount = sign + amount.toLocaleString("th-TH", {
+      style: "currency",
+      currency: "THB",
+    }).replace(/^.*?(\d{1})/, "$1"); // Remove the first "฿"
 
     const li = document.createElement("li");
 
@@ -55,7 +83,7 @@ function renderList() {
       </div>
 
       <div class="amount ${type}">
-        <span>${formatter.format(amount * sign)}</span>
+        <span>${formattedAmount}฿</span>
       </div>
     
       <div class="action">
