@@ -1,4 +1,16 @@
 //show the edit modal
+function changeProfilePicture(input) {
+    var file = input.files[0];
+
+    if (file) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('profileImage').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+}
+
 function showEditModal() {
     var modal = document.getElementById('editModal');
     modal.style.display = 'flex'; // Set display to flex
@@ -14,14 +26,14 @@ function closeEditModal() {
 //update the text
 function updateText() {
     var newText = document.getElementById('editText').value;
-    document.getElementById('editableText').innerText = newText;
+    document.getElementById('profileName').innerText = newText;
     closeEditModal();
 }
 
 //make the text editable on click
 function editText() {
     showEditModal();
-    var currentText = document.getElementById('editableText').innerText;
+    var currentText = document.getElementById('profileName').innerText;
     document.getElementById('editText').value = currentText;
 }
 
@@ -35,4 +47,7 @@ window.onclick = function(event) {
 
 // Initialize the modal to be hidden
 document.getElementById('editModal').style.display = 'none';
+
+
+
 
