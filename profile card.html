@@ -8,23 +8,35 @@
 </head>
 <body>
     <div class="container">
-         <div class="profile-box">
+        <div class="profile-box">
             <img src="images/menu.png" class="menu-icon" style="width: 30px; position: absolute; left: 20px; top: 20px;" alt="Menu Icon">
             <img src="images/setting.png" class="setting-icon" style="width: 40px; position: absolute; right: 20px; top: 15px;" alt="Setting Icon">
-            <img src="images/Profile-meme.jpg" class="profile" style="width: 55px; height: 55px;" alt="Profile Image"> <!--ProfilePic-->
-            <h3> JOLO ManHH</h3>
-            <p> I'm Programmer and don't know how to code</p>
+            <img src="images/Profile-meme.jpg" class="profile" style="width: 55px; height: 55px;" alt="Profile Image">
+            <h3 id="editableText" onclick="editText()">JOLO ManHH</h3>
+            <p> I'm a Programmer and don't know how to code</p>
             <div class="social-media">
-                <img src="images/instagram.png" >
-                <img src="images/telegram.png" >
-                <img src="images/dribble.png" >
+                <img src="images/instagram.png" alt="Instagram">
+                <img src="images/telegram.png" alt="Telegram">
+                <img src="images/dribble.png" alt="Dribble">
             </div>
-            <button  type="button">about me</button>
+            <button type="button" onclick="showEditModal()">Edit Profile</button>
             <div class="profile-bottom">
-               <p>Know about myself</p>
-               <img src="images/arrow.png">
+                <p>Know about myself</p>
+                <img src="images/arrow.png" alt="Arrow">
             </div>
-         </div>
+        </div>
     </div>
+
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeEditModal()">&times;</span>
+            <label for="editText">Profile Name:</label>
+            <input type="text" id="editText" placeholder="Enter new text">
+            <button onclick="updateText()">Save</button>
+        </div>
+    </div>
+
+    <script src="profile card.js"></script>
 </body>
 </html>
