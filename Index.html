@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css" />
     <title>income and expenses</title>
+    <style>
+      /* Add your additional styles here */
+      #transactionListContainer {
+          max-height: 250px; /* Set the maximum height for the container */
+          overflow-y: auto; /* Enable vertical scrollbar if needed */
+      }
+  </style>
 </head>
 
   <main>
@@ -13,15 +20,17 @@
       <h1>Income and Expenses Tracker</h1>
       
       <body>
-        
-        <div id="ProfileContainer">
-    
-          <a href="profile card.html">
-            <img src="images/Profile-meme.jpg" alt="Profile Image">
-          </a>
-          <h1 class="">Buam</h1>
+        <div id="ProfileText"  style="font-weight: bold; font-size: 20px; color: 
+        white; text-shadow: 2px 2px 4px black; position: absolute; top: 15px; right: 62.5px; 
+        background-color: green; padding: 10px; border-radius: 10px;">
+          <a href="profile card.html" style="text-decoration: none; color: white;">Your Profile</a> <!-- Add text here -->
         </div>
-    
+        <div id="ProfileContainer" style="position: absolute; top: 10px; right: 10px; 
+        background-color: green; padding: 10px; height: 60px; width: 60px; border-radius: 10px;">
+          <a href="profile card.html">
+              <img src="images/Profile-meme.jpg" alt="Profile Image"> <!-- Add picture here -->
+          </a>
+      </div>
       </body>
 
 
@@ -43,9 +52,13 @@
 
     <section>
       <h3>Transactions</h3>
-      <ul id="transactionList"></ul>
+      <div id="transactionListContainer">
+          <ul id="transactionList">
+              <li>Transaction</li>
+          </ul>
+      </div>
       <div id="status"></div>
-    </section>
+  </section>
 
     <section>
       <h3>Add Transaction</h3>
@@ -77,13 +90,32 @@
         </div>
         <div>
           <label for="date">Date</label>
-          <input type="date" name="date" required />
-        </div>
+          <input type="date" name="date" placeholder="" id="dateInput" required />
+      </div>
         <button type="submit">Submit</button>
       </form>
     </section>
   </main>
 
   <script src="index.js"></script>
+  <script>
+    // JavaScript to set the date input's placeholder to the current date
+    document.getElementById('dateInput').valueAsDate = new Date();
+
+    // Add an event listener to the form for submission
+    document.getElementById('transactionForm').addEventListener('submit', function (event) {
+        // Prevent the default form submission behavior
+        event.preventDefault();
+        
+        // Set the date input value to the current date after form submission
+        document.getElementById('dateInput').valueAsDate = new Date();
+        
+        // You can add additional logic for form submission handling here
+
+        // For example, you may want to submit the form data to a server using AJAX
+        // and update the UI with the new transaction.
+    });
+</script>
+</script>
 </body>
 </html>
