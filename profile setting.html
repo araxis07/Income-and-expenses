@@ -12,7 +12,7 @@
 <body>
   <div class="container">
     <div id="logo">
-      <h1 class="logo">YOLO</h1>
+      <h1 class="logo">EDIT </h1>
     </div>
 
     <div class="leftbox">
@@ -39,18 +39,36 @@
       <div class="profile">
         <h1>Personal Info</h1>
         <h2>Name</h2>
-        <p>YeetMan <button class="btn">update</button></p>
+        <p id="textChange_name">YeetMan<button class="btn" onclick="editText()">update</button></p>
         <h2>Birthday</h2>
         <p>January 7</p>
         <h2>Gender</h2>
         <p>Gay</p>
         <h2>Email</h2>
-        <p>Yeetman@gmail.com<button class="btn">update</button></p>
+        <p>Yeetman@gmail.com</p>
         <h2>Password</h2>
-        <p>******** <button class="btn">Change</button></p>
+        <p>********</p>
       </div>
     </div>
   </div>
+
+  <!-- modal -->
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeEditModal()">&times;</span>
+      <label for="editText">Edit User Name:</label>
+      <input type="text" id="editText" placeholder="Enter new text">
+      <button id="saveButton" onclick="updateText()">Save</button>
+    </div>
+  </div>
+
+  <script src="profile setting.js"></script>
+
+
+
+
+
+
 </body>
 
 <script>
