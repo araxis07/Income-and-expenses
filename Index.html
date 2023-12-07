@@ -84,8 +84,8 @@
             name="amount"
             placeholder="0"
             min="0.01"
-            step="0.01"
-            required
+        step="0.01"
+           required
           />
         </div>
         <div>
@@ -99,21 +99,12 @@
 
   <script src="index.js"></script>
   <script>
-    // JavaScript to set the date input's placeholder to the current date
     document.getElementById('dateInput').valueAsDate = new Date();
 
-    // Add an event listener to the form for submission
     document.getElementById('transactionForm').addEventListener('submit', function (event) {
-        // Prevent the default form submission behavior
         event.preventDefault();
         
-        // Set the date input value to the current date after form submission
         document.getElementById('dateInput').valueAsDate = new Date();
-        
-        // You can add additional logic for form submission handling here
-
-        // For example, you may want to submit the form data to a server using AJAX
-        // and update the UI with the new transaction.
     });
 </script>
 </script>
