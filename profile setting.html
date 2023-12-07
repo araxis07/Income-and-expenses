@@ -29,13 +29,11 @@
         <a href="#">
           
         </a>
-        <a href="login.html" >
+        <a href="login.html" id="logoutBtn"> 
           <i class="fa fa-solid fa-right-from-bracket"></i>
         </a>
       </nav>
     </div>
-
-    
 
     <div class="rightbox">
       <div class="profile">
@@ -54,4 +52,17 @@
     </div>
   </div>
 </body>
+
+<script>
+  document.getElementById('logoutBtn').addEventListener('click', function (event) {
+      event.preventDefault();
+
+      const confirmed = window.confirm('Are you sure you want to log out?');
+
+      if (confirmed) {
+          window.location.href = 'login.html';
+      }
+  });
+</script>
+
 </html>
