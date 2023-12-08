@@ -36,6 +36,8 @@ function auth() {
     }
     }
 
+    // password zone change
+    
     function Login_check() {
       var email = document.getElementById('Email').value;
       var password = document.getElementById('Password').value;
