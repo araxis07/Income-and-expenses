@@ -9,9 +9,9 @@ function showEditModal() {
   
   function updateText() {
     var newText = document.getElementById('editText').value;
-    document.getElementById('profileName').innerText = newText;
+    document.getElementById('textChange_name').innerText = newText; // Corrected the id here
     closeEditModal();
-  }
+}
   
   function editText() {
     showEditModal();
