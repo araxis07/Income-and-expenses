@@ -220,3 +220,20 @@ button {
   transition: background-color 0.3s ease;
 }
 
+/* Style for select element */
+select {
+  width: 100px; 
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 10px;
+}
+
+/* Optional: Style for the dropdown arrow */
+select::after {
+  content: '\25BC'; /* Unicode character for a downward-pointing triangle or caret */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+}

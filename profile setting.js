@@ -11,6 +11,7 @@ function showEditModal() {
     var newText = document.getElementById('editText').value;
     document.getElementById('textChange_name').innerText = newText; // Corrected the id here
     closeEditModal();
+    
 }
   
   function editText() {
