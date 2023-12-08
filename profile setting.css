@@ -237,3 +237,20 @@ select::after {
   right: 10px;
   transform: translateY(-50%);
 }
+
+
+
+/* Style for date input */
+input[type="date"] {
+  width: 30%; /* Set the desired width */
+  padding: 3px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.profile input[type="date"] {
+  margin-bottom: -10px; 
+  height: 20px;
+}
+
