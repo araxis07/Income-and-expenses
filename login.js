@@ -35,3 +35,16 @@ function auth() {
       alert("Please fill in all fields.");
     }
     }
+
+    function Login_check() {
+      var email = document.getElementById('Email').value;
+      var password = document.getElementById('Password').value;
+
+      if (email == "user123@gmail.com" && password == "123456") {
+        window.location.href = "index.html";
+        alert("Login successful as user");
+      }
+      else {
+        alert("Incorrect email or password");
+      }
+    }
