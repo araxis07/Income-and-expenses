@@ -27,7 +27,7 @@ function auth() {
 
     else if (email_check && password_check && password_con_check && user_check) {
       // Perform your authentication logic
-      window.location.href = "index2.html";
+      window.location.href = "login.html";
       alert("Create Account Success.");
 
 
