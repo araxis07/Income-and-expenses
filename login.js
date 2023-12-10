@@ -44,7 +44,7 @@ function auth() {
 
       if (email == "user123@gmail.com" && password == "123456") {
         window.location.href = "index.html";
-        alert("Login successful as user");
+        alert("Login successful");
       }
       else {
         alert("Incorrect email or password");
