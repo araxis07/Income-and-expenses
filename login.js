@@ -27,7 +27,7 @@ function auth() {
 
     else if (email_check && password_check && password_con_check && user_check) {
       // Perform your authentication logic
-      window.location.href = "login.html"
+      window.location.href = "index2.html";
       alert("Create Account Success.");
 
 
@@ -44,7 +44,7 @@ function auth() {
 
       if (email == "user123@gmail.com" && password == "123456") {
         window.location.href = "index.html";
-        alert("Login successful");
+        alert("Login successful as user");
       }
       else {
         alert("Incorrect email or password");
