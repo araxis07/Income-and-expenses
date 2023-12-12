@@ -171,4 +171,30 @@
   });
 </script>
 
+
+
+<!--Sorting text Select box-->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    
+    var select = document.getElementById("provinceSelect");
+
+    // Get the options
+    var options = Array.from(select.options);
+
+    // Sort  alphabetically
+    options.sort(function (a, b) {
+      return a.text.localeCompare(b.text);
+    });
+
+    // Remove existing options
+    select.innerHTML = "";
+
+    // Add sorted options back to the select element
+    options.forEach(function (option) {
+      select.add(option);
+    });
+  });
+</script>
+
 </html>
