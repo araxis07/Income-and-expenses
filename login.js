@@ -11,13 +11,13 @@ loginBtn.addEventListener('click', () => {
 });
 
 function auth() {
-    var email_check = !!document.getElementById('Emailcheck').value;
-    var password_check = !!document.getElementById('PasswordCheck').value;
-    var password_con_check = !!document.getElementById('Password_Confirm_Check').value;
-    var user_check = !!document.getElementById('Usercheck').value;
+  var email_check = !!document.querySelector('.form-container.sign-up input[type="email"]').value;
+  var password_check = !!document.querySelector('.form-container.sign-up input[type="password"]').value;
+  var password_con_check = !!document.querySelector('.form-container.sign-up input[type="password"]').value;
+  var user_check = !!document.querySelector('.form-container.sign-up input[type="text"]').value;
 
-    var password_syntax =  document.getElementById('PasswordCheck').value;
-    var password_con_syntax = document.getElementById('Password_Confirm_Check').value;
+  var password_syntax =  document.querySelector('.form-container.sign-up input[type="password"]').value;
+  var password_con_syntax = document.querySelector('.form-container.sign-up input[type="password"]').value;
 
     if (password_syntax !== password_con_syntax) {
       // Perform your authentication logic
