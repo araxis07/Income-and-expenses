@@ -7,7 +7,7 @@
     <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
-    <link rel="stylesheet" href="profile setting.css" />
+    <link rel="stylesheet" href="profile location.css" />
 </head>
 <body>
   <div class="container">
@@ -38,39 +38,119 @@
     <div class="rightbox">
       <div class="profile">
         <h1>User Address</h1>
-        <h2>Name</h2>
-        <p id="textChange_name">YeetMan<button class="btn" onclick="editText()">update</button></p>
-        <h2>Birthday</h2>
-        <input type="date" id="start" name="trip-start" value="2018-07-22" min="2000-01-01" max="20022-12-31" />
-        <p></p>
-        <h2>Gender</h2>
+
+        <div class="name-container">
+          <div>
+              <h2 for="fname">First name:</h2>
+              <input type="text" id="fname" name="fname" placeholder="EEEEEE">
+          </div>
+          <div>
+              <h2 for="lname">Last name:</h2>
+              <input type="text" id="lname" name="lname" placeholder="Lolllllllllllllll">
+          </div>
+        </div>
+
+        <h2>Address</h2>
+        <div class="fixed-box">
+          <textarea name="w3review" rows="4" cols="50">Anywhere</textarea>
+        </div>
 
 
-        <select name="gender" class="styled-select">
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="none">None</option>
-      </select>
+
+        <br>
         
-        <h2>Email</h2>
-        <p>user123@gmail.com</p>
-        <h2>Password</h2>
-        <p>******</p>
+        
+        <h2>Select a Province:</h2>
+        <select id="provinceSelect" name="province">
+            <option value="Bangkok">Bangkok</option>
+            <option value="Samut Prakan">Samut Prakan</option>
+            <option value="Nonthaburi">Nonthaburi</option>
+            <option value="Pathum Thani">Pathum Thani</option>
+            <option value="Phra Nakhon Si Ayutthaya">Phra Nakhon Si Ayutthaya</option>
+            <option value="Ang Thong">Ang Thong</option>
+            <option value="Lop Buri">Lop Buri</option>
+            <option value="Sing Buri">Sing Buri</option>
+            <option value="Chai Nat">Chai Nat</option>
+            <option value="Saraburi">Saraburi</option>
+            <option value="Chon Buri">Chon Buri</option>
+            <option value="Rayong">Rayong</option>
+            <option value="Chanthaburi">Chanthaburi</option>
+            <option value="Trat">Trat</option>
+            <option value="Chachoengsao">Chachoengsao</option>
+            <option value="Prachin Buri">Prachin Buri</option>
+            <option value="Nakhon Nayok">Nakhon Nayok</option>
+            <option value="Sa Kaeo">Sa Kaeo</option>
+            <option value="Nakhon Ratchasima">Nakhon Ratchasima</option>
+            <option value="Buri Ram">Buri Ram</option>
+            <option value="Surin">Surin</option>
+            <option value="Si Sa Ket">Si Sa Ket</option>
+            <option value="Ubon Ratchathani">Ubon Ratchathani</option>
+            <option value="Yasothon">Yasothon</option>
+            <option value="Chaiyaphum">Chaiyaphum</option>
+            <option value="Amnat Charoen">Amnat Charoen</option>
+            <option value="Nong Bua Lamphu">Nong Bua Lamphu</option>
+            <option value="Khon Kaen">Khon Kaen</option>
+            <option value="Udon Thani">Udon Thani</option>
+            <option value="Loei">Loei</option>
+            <option value="Nong Khai">Nong Khai</option>
+            <option value="Maha Sarakham">Maha Sarakham</option>
+            <option value="Roi Et">Roi Et</option>
+            <option value="Kalasin">Kalasin</option>
+            <option value="Sakon Nakhon">Sakon Nakhon</option>
+            <option value="Nakhon Phanom">Nakhon Phanom</option>
+            <option value="Mukdahan">Mukdahan</option>
+            <option value="Chiang Mai">Chiang Mai</option>
+            <option value="Lamphun">Lamphun</option>
+            <option value="Lampang">Lampang</option>
+            <option value="Uttaradit">Uttaradit</option>
+            <option value="Phrae">Phrae</option>
+            <option value="Nan">Nan</option>
+            <option value="Phayao">Phayao</option>
+            <option value="Chiang Rai">Chiang Rai</option>
+            <option value="Mae Hong Son">Mae Hong Son</option>
+            <option value="Nakhon Sawan">Nakhon Sawan</option>
+            <option value="Uthai Thani">Uthai Thani</option>
+            <option value="Kamphaeng Phet">Kamphaeng Phet</option>
+            <option value="Tak">Tak</option>
+            <option value="Sukhothai">Sukhothai</option>
+            <option value="Phitsanulok">Phitsanulok</option>
+            <option value="Phichit">Phichit</option>
+            <option value="Phetchabun">Phetchabun</option>
+            <option value="Ratchaburi">Ratchaburi</option>
+            <option value="Kanchanaburi">Kanchanaburi</option>
+            <option value="Suphan Buri">Suphan Buri</option>
+            <option value="Nakhon Pathom">Nakhon Pathom</option>
+            <option value="Samut Sakhon">Samut Sakhon</option>
+            <option value="Samut Songkhram">Samut Songkhram</option>
+            <option value="Phetchaburi">Phetchaburi</option>
+            <option value="Prachuap Khiri Khan">Prachuap Khiri Khan</option>
+            <option value="Chumphon">Chumphon</option>
+            <option value="Ranong">Ranong</option>
+            <option value="Surat Thani">Surat Thani</option>
+            <option value="Phang Nga">Phang Nga</option>
+            <option value="Phuket">Phuket</option>
+            <option value="Krabi">Krabi</option>
+            <option value="Nakhon Si Thammarat">Nakhon Si Thammarat</option>
+            <option value="Trang">Trang</option>
+            <option value="Phatthalung">Phatthalung</option>
+            <option value="Satun">Satun</option>
+            <option value="Songkhla">Songkhla</option>
+            <option value="Pattani">Pattani</option>
+            <option value="Yala">Yala</option>
+            <option value="Narathiwat">Narathiwat</option>
+        </select>
+
+        <div>
+          <h2 for="postalcode">Postal code:</h2>
+          <input type="text" id="postalcode" name="postalcode" placeholder="Code">
+        </div>
+        
+
       </div>
     </div>
   </div>
 
-  <!-- modal -->
-  <div id="editModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeEditModal()">&times;</span>
-      <label for="editText">Edit User Name:</label>
-      <input type="text" id="editText" placeholder="Enter new text">
-      <button id="saveButton" onclick="updateText()">Save</button>
-    </div>
-  </div>
 
-  <script src="profile setting.js"></script>
 
 
 
@@ -88,6 +168,32 @@
       if (confirmed) {
           window.location.href = 'login.html';
       }
+  });
+</script>
+
+
+
+<!--Sorting text Select box-->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    
+    var select = document.getElementById("provinceSelect");
+
+    // Get the options
+    var options = Array.from(select.options);
+
+    // Sort  alphabetically
+    options.sort(function (a, b) {
+      return a.text.localeCompare(b.text);
+    });
+
+    // Remove existing options
+    select.innerHTML = "";
+
+    // Add sorted options back to the select element
+    options.forEach(function (option) {
+      select.add(option);
+    });
   });
 </script>
 
