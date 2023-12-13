@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile card</title>
-    <link rel="stylesheet" href="profile card.css">
-</head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Profile card</title>
+        <link rel="stylesheet" href="profile card.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    </head>
 <body>
     <div class="container">
         <div class="profile-box">
-            <img src="images/menu.png" class="menu-icon" style="width: 30px; position: absolute; left: 20px; top: 20px;" alt="Menu Icon">
+            <a href="Index.html" class="menu-link">
+                <i class="fas fa-chevron-right fa-rotate-180 menu-icon" style="font-size: 30px; position: absolute; left: 25px; top: 20px;"></i>
+            </a>
             <a href="profile setting.html"><img src="images/setting.png" class="setting-icon" style="width: 40px; position: absolute; right: 20px; top: 15px;" alt="Setting Icon"></a>
             <label for="profilePicture">
                 <img src="images/Profile-meme.jpg" id="profileImage" class="profile" style="width: 55px; height: 55px;" alt="Profile Image">
@@ -25,12 +28,10 @@
             <button type="button" onclick="editText()">Change User Name</button>
             <div class="profile-bottom">
                 <p>" Save for your money? "</p>
-                
             </div>
         </div>
     </div>
     
-
     <!--Modal mean popup-->
     <div id="editModal" class="modal">
         <div class="modal-content">
@@ -41,8 +42,6 @@
         </div>
     </div>
     
-
-
     <script src="profile card.js"></script>
 </body>
 </html>

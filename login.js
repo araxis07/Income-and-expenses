@@ -11,13 +11,14 @@ loginBtn.addEventListener('click', () => {
 });
 
 function auth() {
-  var email_check = !!document.querySelector('.form-container.sign-up input[type="email"]').value;
-  var password_check = !!document.querySelector('.form-container.sign-up input[type="password"]').value;
-  var password_con_check = !!document.querySelector('.form-container.sign-up input[type="password"]').value;
-  var user_check = !!document.querySelector('.form-container.sign-up input[type="text"]').value;
+    var email_check = !!document.querySelector('.form-container.sign-up input[type="email"]').value;
+    var password_check = !!document.querySelector('.form-container.sign-up input[type="password"]').value;
+    var password_con_check = !!document.querySelector('.form-container.sign-up input[type="password"]').value;
+    var user_check = !!document.querySelector('.form-container.sign-up input[type="text"]').value;
 
-  var password_syntax =  document.querySelector('.form-container.sign-up input[type="password"]').value;
-  var password_con_syntax = document.querySelector('.form-container.sign-up input[type="password"]').value;
+    var password_syntax =  document.querySelector('.form-container.sign-up input[type="password"]').value;
+    var password_con_syntax = document.querySelector('.form-container.sign-up input[type="password"]').value;
+
 
     if (password_syntax !== password_con_syntax) {
       // Perform your authentication logic
@@ -28,7 +29,7 @@ function auth() {
     else if (email_check && password_check && password_con_check && user_check) {
       // Perform your authentication logic
       window.location.href = "login.html";
-      alert("Create Account Success.");
+      alert("Create Account Success."); //show success
 
 
     } else {
@@ -50,3 +51,5 @@ function auth() {
         alert("Incorrect email or password");
       }
     }
+
+    
