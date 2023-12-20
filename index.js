@@ -14,6 +14,8 @@ const balance = document.getElementById("balance");
 const income = document.getElementById("income");
 const expense = document.getElementById("expense");
 
+const EXPENSE_THRESHOLD = 100000;
+
 form.addEventListener("submit", addTransaction);
 
 function updateTotal() {
@@ -45,6 +47,32 @@ function updateTotal() {
   balance.textContent = formattedBalance;
   income.textContent = formattedIncome;
   expense.textContent = formattedExpense;
+
+  // the income value
+  const incomeContainer = document.getElementById('income');
+  const incomeTextLength = Math.abs(incomeTotal).toString().length;
+  let baseIncomeFontSize = 1.25;
+
+  if (Math.abs(incomeTotal) >= 100000000) {
+    baseIncomeFontSize = 0.8;
+  }
+
+  const incomeFontSize = Math.max(baseIncomeFontSize - 0.02 * incomeTextLength, 1);
+
+  incomeContainer.style.fontSize = `${incomeFontSize}rem`;
+
+  // the expense value
+  const expenseContainer = document.getElementById('expense');
+  const expenseTextLength = Math.abs(expenseTotal).toString().length;
+  let baseExpenseFontSize = 1.25; 
+
+  if (Math.abs(expenseTotal) >= 100000000) {
+    baseExpenseFontSize = 0.8;
+  }
+
+  const expenseFontSize = Math.max(baseExpenseFontSize - 0.02 * expenseTextLength, 1);
+
+  expenseContainer.style.fontSize = `${expenseFontSize}rem`;
 
   // Get the header element
   const header = document.querySelector("header");
@@ -114,12 +142,43 @@ function addTransaction(e) {
 
   const formData = new FormData(this);
 
+  const enteredAmount = parseFloat(formData.get("amount"));
+  const selectedType = form.type.checked ? "expense" : "income";
+
+  // Check if the entered amount is valid
+  if (enteredAmount >= 2000000000) {
+    alert("Amount cannot be 2,000,000,000 or more.");
+    return;
+  }
+
+  // Check if the sum of Income or Expense exceeds the limit
+  const currentIncome = transactions
+    .filter((trx) => trx.type === "income")
+    .reduce((total, trx) => total + trx.amount, 0);
+
+  const currentExpense = transactions
+    .filter((trx) => trx.type === "expense")
+    .reduce((total, trx) => total + trx.amount, 0);
+
+  const newTotalIncome = selectedType === "income" ? currentIncome + enteredAmount : currentIncome;
+  const newTotalExpense = selectedType === "expense" ? currentExpense + enteredAmount : currentExpense;
+
+  if (newTotalIncome >= 2000000000) {
+    alert("Income cannot be more than 1,999,999,999.");
+    return;
+  }
+
+  if (newTotalExpense >= 2000000000) {
+    alert("Expense cannot be more than 1,999,999,999.");
+    return;
+  }
+
   transactions.push({
     id: transactions.length + 1,
     name: formData.get("name"),
-    amount: parseFloat(formData.get("amount")),
+    amount: enteredAmount,
     date: new Date(formData.get("date")),
-    type: form.type.checked ? "expense" : "income",
+    type: selectedType,
   });
 
   this.reset();
@@ -128,6 +187,7 @@ function addTransaction(e) {
   saveTransactions();
   renderList();
 }
+
 
 function saveTransactions() {
   transactions.sort((a, b) => new Date(b.date) - new Date(a.date));

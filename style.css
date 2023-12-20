@@ -54,12 +54,6 @@ header div {
   padding: 5px;
 }
 
-header div:first-child {
-  flex-basis: 100%;
-  font-size: 2.00rem;
-  font-weight: 600;
-}
-
 header div:nth-child(n + 2) {
   flex-basis: 50%;
   font-size: 1.25rem;
@@ -67,10 +61,47 @@ header div:nth-child(n + 2) {
 }
 
 header h5 {
-  font-size: 0.75rem;
+  font-size: 1.0rem;
   font-weight: 600;
   text-transform: uppercase;
 }
+
+/*Group of Money in Dashboard*/
+header span {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+header div:first-child { /* Container 1: Total Balance */
+  flex-basis: 100%;
+  font-size: 2.00rem;
+  font-weight: 600;
+}
+
+header span#balance {
+  color: white; /* Set the color for balance */
+}
+
+header div:nth-child(3) { /* Container 2: Income */
+  flex-basis: 50%;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+header span#income {
+  color: white; /* Set the color for income */
+}
+
+header div:nth-child(4) { /* Container 3: Expense */
+  flex-basis: 50%;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+header span#expense {
+  color: white; /* Set the color for expense */
+}
+/*Group of Money in Dashboard*/
 
 form {
   display: flex;
