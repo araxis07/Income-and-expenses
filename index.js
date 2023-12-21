@@ -13,17 +13,31 @@ const status = document.getElementById("status");
 const balance = document.getElementById("balance");
 const income = document.getElementById("income");
 const expense = document.getElementById("expense");
+const searchInput = document.getElementById("search");
 
 const EXPENSE_THRESHOLD = 100000;
 
 form.addEventListener("submit", addTransaction);
+searchInput.addEventListener("input", updateSearch);
 
-function updateTotal() {
-  const incomeTotal = transactions
+function updateSearch() {
+  const searchTerm = searchInput.value.toLowerCase();
+
+  // If the search term is empty, show all transactions
+  const transactionsToRender = searchTerm === ""
+    ? transactions
+    : transactions.filter((trx) => trx.name.toLowerCase().includes(searchTerm));
+
+  renderList(transactionsToRender);
+  updateTotal(transactionsToRender);
+}
+
+function updateTotal(transactionsToRender) {
+  const incomeTotal = transactionsToRender
     .filter((trx) => trx.type === "income")
     .reduce((total, trx) => total + trx.amount, 0);
 
-  const expenseTotal = transactions
+  const expenseTotal = transactionsToRender
     .filter((trx) => trx.type === "expense")
     .reduce((total, trx) => total + trx.amount, 0);
 
@@ -31,18 +45,18 @@ function updateTotal() {
 
   // Format the Total Balance with the currency symbol at the end
   const formattedBalance = (balanceTotal === 0 ? "" : (balanceTotal < 0 ? "-" : "+")) +
-  formatter.format(Math.abs(balanceTotal)).replace(/^.*?(\d{1})/, "$1") +
-  "฿";
+    formatter.format(Math.abs(balanceTotal)).replace(/^.*?(\d{1})/, "$1") +
+    "฿";
 
   // Format the Income with the currency symbol at the end
   const formattedIncome = (incomeTotal === 0 ? "" : (incomeTotal < 0 ? "-" : "+")) +
-  formatter.format(Math.abs(incomeTotal)).replace(/^.*?(\d{1})/, "$1") +
-  "฿";
+    formatter.format(Math.abs(incomeTotal)).replace(/^.*?(\d{1})/, "$1") +
+    "฿";
 
   // Format the Expnse with the currency symbol at the end
   const formattedExpense = (expenseTotal === 0 ? "" : (expenseTotal > 0 ? "-" : "+")) +
-  formatter.format(Math.abs(expenseTotal)).replace(/^.*?(\d{1})/, "$1") +
-  "฿";
+    formatter.format(Math.abs(expenseTotal)).replace(/^.*?(\d{1})/, "$1") +
+    "฿";
 
   balance.textContent = formattedBalance;
   income.textContent = formattedIncome;
@@ -64,7 +78,7 @@ function updateTotal() {
   // the expense value
   const expenseContainer = document.getElementById('expense');
   const expenseTextLength = Math.abs(expenseTotal).toString().length;
-  let baseExpenseFontSize = 1.25; 
+  let baseExpenseFontSize = 1.25;
 
   if (Math.abs(expenseTotal) >= 100000000) {
     baseExpenseFontSize = 0.8;
@@ -83,19 +97,18 @@ function updateTotal() {
   } else {
     header.style.backgroundColor = "var(--main-color)";
   }
-
 }
 
-function renderList() {
+function renderList(transactionsToRender) {
   list.innerHTML = "";
 
   status.textContent = "";
-  if (transactions.length === 0) {
+  if (transactionsToRender.length === 0) {
     status.textContent = "No transactions.";
     return;
   }
 
-  transactions.forEach(({ id, name, amount, date, type }) => {
+  transactionsToRender.forEach(({ id, name, amount, date, type }) => {
     const sign = type === "income" ? "+" : "-";
     const formattedAmount = sign + amount.toLocaleString("th-TH", {
       style: "currency",
@@ -125,16 +138,13 @@ function renderList() {
   });
 }
 
-renderList();
-updateTotal();
-
 function deleteTransaction(id) {
   const index = transactions.findIndex((trx) => trx.id === id);
   transactions.splice(index, 1);
 
-  updateTotal();
+  updateTotal(transactions);
   saveTransactions();
-  renderList();
+  renderList(transactions);
 }
 
 function addTransaction(e) {
@@ -183,14 +193,16 @@ function addTransaction(e) {
 
   this.reset();
 
-  updateTotal();
+  updateTotal(transactions);
   saveTransactions();
-  renderList();
+  renderList(transactions);
 }
-
 
 function saveTransactions() {
   transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
 
   localStorage.setItem("transactions", JSON.stringify(transactions));
 }
+
+document.getElementById('dateInput').valueAsDate = new Date();
+updateSearch(); // Update the search initially

@@ -8,7 +8,7 @@
     <style>
       /* Add your additional styles here */
       #transactionListContainer {
-          max-height: 250px; /* Set the maximum height for the container */
+          max-height: 220px; /* Set the maximum height for the container */
           overflow-y: auto; /* Enable vertical scrollbar if needed */
       }
   </style>
@@ -51,7 +51,13 @@
     </header>
 
     <section>
-      <h3>Transactions</h3>
+      <h3>Transactions</h3> <!--Add Here-->
+
+      <div id="searchContainer">
+        <label for="search"></label>
+        <input type="text" id="search" placeholder="Type to search">
+      </div>    
+
       <div id="transactionListContainer">
           <ul id="transactionList">
               <li>Transaction</li>
