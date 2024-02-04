@@ -1,73 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css" />
-    <title>income and expenses</title>
-    <style>
-      /* Add your additional styles here */
-      #transactionListContainer {
-          max-height: 220px; /* Set the maximum height for the container */
-          overflow-y: auto; /* Enable vertical scrollbar if needed */
-      }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css" />
+  <title>Income and Expenses</title>
+  <style>
+    /* Add your additional styles here */
+    #transactionListContainer {
+      max-height: 220px;
+      overflow-y: auto;
+    }
   </style>
 </head>
 
+<body>
+
   <main>
 
-    <body>
-      <h1>Income and Expenses Tracker</h1>
-      
-      <body>
-        <div id="ProfileText"  style="font-weight: bold; font-size: 20px; color: 
-        white; text-shadow: 2px 2px 4px black; position: absolute; top: 15px; right: 62.5px; 
-        background-color: green; padding: 10px; border-radius: 10px;">
-          <a href="profile card.html" style="text-decoration: none; color: white;">Your Profile</a> <!-- Add text here -->
-        </div>
-        <div id="ProfileContainer" style="position: absolute; top: 10px; right: 10px; 
-        background-color: green; padding: 10px; height: 60px; width: 60px; border-radius: 10px;">
-          <a href="profile card.html">
-              <img src="images/Profile-meme.jpg" alt="Profile Image"> <!-- Add picture here -->
-          </a>
-      </div>
-      </body>
+    <h1>Income and Expenses Tracker</h1>
 
+    <div id="ProfileText" style="font-weight: bold; font-size: 20px; color: white; text-shadow: 2px 2px 4px black; position: absolute; top: 15px; right: 62.5px; background-color: green; padding: 10px; border-radius: 10px;">
+      <a href="profile setting.html" style="text-decoration: none; color: white;">Your Profile</a>
+    </div>
+
+    <div id="ProfileContainer" style="position: absolute; top: 10px; right: 10px; background-color: green; padding: 10px; height: 60px; width: 60px; border-radius: 10px;">
+      <a href="profile setting.html">
+        <img src="images/Profile-meme.jpg" alt="Profile Image">
+      </a>
+    </div>
 
     <header>
       <div>
-        <h5>Total Balance</h5> <!--Header-->
+        <h5>Total Balance</h5>
         <span id="balance">0.00฿</span>
       </div>
       <div>
-        <h5>Income</h5> <!--Header-->
+        <h5>Income</h5>
         <span id="income">0.00฿</span>
       </div>
       <div>
-        <h5>Expense</h5> <!--Header-->
+        <h5>Expense</h5>
         <span id="expense">0.00฿</span>
       </div>
-      
     </header>
 
     <section>
-      <h3>Transactions</h3> <!--Add Here-->
+      <h3>Transactions</h3>
 
-      <div id="searchContainer">
+      <div id="searchContainer" style="position: relative; top: -7.5px;">
         <label for="search"></label>
         <input type="text" id="search" placeholder="Type to search">
-      </div>    
+      </div>
 
       <div id="transactionListContainer">
-          <ul id="transactionList">
-              <li>Transaction</li>
-          </ul>
+        <ul id="transactionList">
+          <li>Transaction</li>
+        </ul>
       </div>
       <div id="status"></div>
-  </section>
+    </section>
 
     <section>
       <h3>Add Transaction</h3>
+
+      <div>
+        <label for="preset" style="padding: 5px;">Select Preset:</label>
+        <select id="preset" onchange="applyPreset()" style="padding: 5px;">
+          <option value="none">None</option>
+        </select>
+        <button onclick="createPreset()" style="width: 50px; margin-left: 5px; margin-bottom: 10px; margin-top: 5px; position: relative; top: -7.5px;">Create Preset</button>
+        <button id="deletePresetButton" style="width: 50px;  margin-left: 5px; position: relative; top: -7.5px;">Delete Preset</button>
+      </div>
+      
+      
 
       <form id="transactionForm">
         <div>
@@ -80,24 +87,17 @@
           </label>
         </div>
         <div>
-          <label for="name">Name</label>
+          <label for="name">action</label>
           <input type="text" name="name" required />
         </div>
         <div>
           <label for="amount">Amount</label>
-          <input
-            type="number"
-            name="amount"
-            placeholder="0"
-            min="0.01"
-        step="0.01"
-           required
-          />
+          <input type="number" name="amount" placeholder="0" min="0.01" step="0.01" required />
         </div>
         <div>
           <label for="date">Date</label>
           <input type="date" name="date" placeholder="" id="dateInput" required />
-      </div>
+        </div>
         <button type="submit">Submit</button>
       </form>
     </section>
@@ -108,11 +108,11 @@
     document.getElementById('dateInput').valueAsDate = new Date();
 
     document.getElementById('transactionForm').addEventListener('submit', function (event) {
-        event.preventDefault();
-        
-        document.getElementById('dateInput').valueAsDate = new Date();
+      event.preventDefault();
+
+      document.getElementById('dateInput').valueAsDate = new Date();
     });
-</script>
-</script>
+  </script>
 </body>
+
 </html>

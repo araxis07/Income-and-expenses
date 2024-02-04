@@ -1,4 +1,5 @@
 const transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+const presets = JSON.parse(localStorage.getItem("presets")) || [];
 
 const formatter = new Intl.NumberFormat("th-TH", {
   style: "currency",
@@ -14,16 +15,19 @@ const balance = document.getElementById("balance");
 const income = document.getElementById("income");
 const expense = document.getElementById("expense");
 const searchInput = document.getElementById("search");
+const presetDropdown = document.getElementById("preset");
+const deletePresetButton = document.getElementById("deletePresetButton"); // Initialize deletePresetButton
 
-const EXPENSE_THRESHOLD = 100000;
+deletePresetButton.addEventListener("click", deleteSelectedPreset);
 
 form.addEventListener("submit", addTransaction);
 searchInput.addEventListener("input", updateSearch);
 
+populatePresets(); // Populate preset dropdown on page load
+
 function updateSearch() {
   const searchTerm = searchInput.value.toLowerCase();
 
-  // If the search term is empty, show all transactions
   const transactionsToRender = searchTerm === ""
     ? transactions
     : transactions.filter((trx) => trx.name.toLowerCase().includes(searchTerm));
@@ -43,17 +47,14 @@ function updateTotal(transactionsToRender) {
 
   const balanceTotal = incomeTotal - expenseTotal;
 
-  // Format the Total Balance with the currency symbol at the end
   const formattedBalance = (balanceTotal === 0 ? "" : (balanceTotal < 0 ? "-" : "+")) +
     formatter.format(Math.abs(balanceTotal)).replace(/^.*?(\d{1})/, "$1") +
     "฿";
 
-  // Format the Income with the currency symbol at the end
   const formattedIncome = (incomeTotal === 0 ? "" : (incomeTotal < 0 ? "-" : "+")) +
     formatter.format(Math.abs(incomeTotal)).replace(/^.*?(\d{1})/, "$1") +
     "฿";
 
-  // Format the Expnse with the currency symbol at the end
   const formattedExpense = (expenseTotal === 0 ? "" : (expenseTotal > 0 ? "-" : "+")) +
     formatter.format(Math.abs(expenseTotal)).replace(/^.*?(\d{1})/, "$1") +
     "฿";
@@ -62,7 +63,6 @@ function updateTotal(transactionsToRender) {
   income.textContent = formattedIncome;
   expense.textContent = formattedExpense;
 
-  // the income value
   const incomeContainer = document.getElementById('income');
   const incomeTextLength = Math.abs(incomeTotal).toString().length;
   let baseIncomeFontSize = 1.25;
@@ -75,7 +75,6 @@ function updateTotal(transactionsToRender) {
 
   incomeContainer.style.fontSize = `${incomeFontSize}rem`;
 
-  // the expense value
   const expenseContainer = document.getElementById('expense');
   const expenseTextLength = Math.abs(expenseTotal).toString().length;
   let baseExpenseFontSize = 1.25;
@@ -88,10 +87,8 @@ function updateTotal(transactionsToRender) {
 
   expenseContainer.style.fontSize = `${expenseFontSize}rem`;
 
-  // Get the header element
   const header = document.querySelector("header");
 
-  // Change background color based on the Total Balance value
   if (balanceTotal < 0) {
     header.style.backgroundColor = "red";
   } else {
@@ -113,7 +110,7 @@ function renderList(transactionsToRender) {
     const formattedAmount = sign + amount.toLocaleString("th-TH", {
       style: "currency",
       currency: "THB",
-    }).replace(/^.*?(\d{1})/, "$1"); // Remove the first "฿"
+    }).replace(/^.*?(\d{1})/, "$1");
 
     const li = document.createElement("li");
 
@@ -150,18 +147,16 @@ function deleteTransaction(id) {
 function addTransaction(e) {
   e.preventDefault();
 
-  const formData = new FormData(this);
+  const formData = new FormData(form);
 
   const enteredAmount = parseFloat(formData.get("amount"));
   const selectedType = form.type.checked ? "expense" : "income";
 
-  // Check if the entered amount is valid
   if (enteredAmount >= 2000000000) {
     alert("Amount cannot be 2,000,000,000 or more.");
     return;
   }
 
-  // Check if the sum of Income or Expense exceeds the limit
   const currentIncome = transactions
     .filter((trx) => trx.type === "income")
     .reduce((total, trx) => total + trx.amount, 0);
@@ -191,7 +186,7 @@ function addTransaction(e) {
     type: selectedType,
   });
 
-  this.reset();
+  form.reset();
 
   updateTotal(transactions);
   saveTransactions();
@@ -200,9 +195,113 @@ function addTransaction(e) {
 
 function saveTransactions() {
   transactions.sort((a, b) => new Date(b.date) - new Date(a.date));
-
   localStorage.setItem("transactions", JSON.stringify(transactions));
+}
+
+function populatePresets() {
+  presets.forEach((preset) => {
+    const option = document.createElement("option");
+    option.value = JSON.stringify(preset);
+    option.text = preset.name;
+    presetDropdown.add(option);
+  });
+}
+
+function createPreset() {
+  const presetName = prompt("Enter the name for the preset:");
+
+  if (presetName) {
+    const formData = new FormData(form);
+
+    const preset = {
+      name: presetName,
+      type: formData.get("type") || "income", // Set the default type to income if not selected
+      action: formData.get("name") || "",
+      amount: formData.get("amount") || 0,
+      date: new Date().toISOString().split("T")[0], // Set the date to the current date
+    };
+
+    presets.push(preset);
+
+    updatePresetDropdown(); // Update the dropdown with the new preset
+
+    localStorage.setItem("presets", JSON.stringify(presets));
+  }
+}
+
+function applyPreset() {
+  const selectedPreset = presetDropdown.value;
+
+  if (selectedPreset === 'none') {
+    // Set the type to income and other fields to default values
+    document.getElementById("type").checked = false;
+    document.getElementsByName("name")[0].value = "";
+    document.getElementsByName("amount")[0].value = "";
+    document.getElementsByName("date")[0].valueAsDate = new Date();
+
+    // Disable the delete button for the "None" option
+    deletePresetButton.disabled = true;
+  } else if (selectedPreset) {
+    const preset = JSON.parse(selectedPreset);
+
+    // Set the type based on the preset
+    document.getElementById("type").checked = preset.type !== "income";
+
+    document.getElementsByName("name")[0].value = preset.action;
+    document.getElementsByName("amount")[0].value = preset.amount;
+    document.getElementsByName("date")[0].value = preset.date;
+
+    // Enable the delete button for other presets
+    deletePresetButton.disabled = false;
+  }
+}
+
+function deleteSelectedPreset() {
+  const selectedPreset = presetDropdown.value;
+  if (selectedPreset !== 'none') {
+    deletePreset(selectedPreset);
+  }
+}
+
+function deletePreset(selectedPreset) {
+  const index = presets.findIndex((preset) => JSON.stringify(preset) === selectedPreset);
+
+  if (index !== -1) {
+    presets.splice(index, 1);
+    localStorage.setItem("presets", JSON.stringify(presets));
+
+    // Clear and repopulate the preset dropdown
+    updatePresetDropdown();
+  }
+
+  // Set the form values after deletion
+  document.getElementById("type").checked = false;
+  document.getElementsByName("name")[0].value = "";
+  document.getElementsByName("amount")[0].value = "";
+
+  // Set the date to the current date
+  const currentDate = new Date();
+  const formattedDate = currentDate.toISOString().split("T")[0];
+  document.getElementsByName("date")[0].value = formattedDate;
+
+  // Disable the delete button for the "None" option after deletion
+  deletePresetButton.disabled = true;
+}
+
+
+function updatePresetDropdown() {
+  // Clear existing options
+  presetDropdown.innerHTML = '<option value="none">None</option>';
+
+  // Populate the dropdown with presets
+  presets.forEach((preset) => {
+    const option = document.createElement("option");
+    option.value = JSON.stringify(preset);
+    option.text = preset.name;
+    presetDropdown.add(option);
+  });
 }
 
 document.getElementById('dateInput').valueAsDate = new Date();
 updateSearch(); // Update the search initially
+applyPreset(); // Apply the preset initially
