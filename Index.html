@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.5/xlsx.full.min.js"></script>
+
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -76,7 +80,7 @@
       
       
 
-      <form id="transactionForm">
+      <form id="transactionForm" class="container">
         <div>
           <label for="type">
             <input type="checkbox" name="type" id="type" />
@@ -99,20 +103,29 @@
           <input type="date" name="date" placeholder="" id="dateInput" required />
         </div>
         <button type="submit">Submit</button>
+
+            <button type="button" onclick="saveTransactionsToFile()" style="flex-shrink: 0;">Save to Notepad</button>
+
+
+
+
+        
       </form>
+
     </section>
   </main>
-
+  
   <script src="index.js"></script>
   <script>
-    document.getElementById('dateInput').valueAsDate = new Date();
-
-    document.getElementById('transactionForm').addEventListener('submit', function (event) {
-      event.preventDefault();
-
       document.getElementById('dateInput').valueAsDate = new Date();
-    });
+      document.getElementById('transactionForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        document.getElementById('dateInput').valueAsDate = new Date();
+      });
+
   </script>
+  
+  
 </body>
 
 </html>

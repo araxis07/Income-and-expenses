@@ -8,6 +8,9 @@ const formatter = new Intl.NumberFormat("th-TH", {
   currencyDisplay: "symbol",
 });
 
+
+
+
 const list = document.getElementById("transactionList");
 const form = document.getElementById("transactionForm");
 const status = document.getElementById("status");
@@ -17,6 +20,7 @@ const expense = document.getElementById("expense");
 const searchInput = document.getElementById("search");
 const presetDropdown = document.getElementById("preset");
 const deletePresetButton = document.getElementById("deletePresetButton"); // Initialize deletePresetButton
+
 
 deletePresetButton.addEventListener("click", deleteSelectedPreset);
 
@@ -305,3 +309,63 @@ function updatePresetDropdown() {
 document.getElementById('dateInput').valueAsDate = new Date();
 updateSearch(); // Update the search initially
 applyPreset(); // Apply the preset initially
+
+
+function saveTransactionsToFile() {
+  const transactions = JSON.parse(localStorage.getItem("transactions")) || [];
+
+  // Header
+  const header = "Name\tDate\tType\tAmount";
+
+  const formattedData = transactions.map(item => {
+    // ทำให้ Name ตัวอักษรตัวแรกเป็นตัวพิมพ์ใหญ่
+    const formattedName = item.name.charAt(0).toUpperCase() + item.name.slice(1);
+  
+    const formattedDate = new Date(item.date).toLocaleDateString("en-US", { year: 'numeric', month: 'long', day: 'numeric' });
+    const amount = item.type === 'expense' ? -item.amount : item.amount;
+  
+    return `${formattedName}\t${formattedDate}\t${item.type}\t${amount}`;
+  });
+
+  // Total row
+// Total row
+const totalIncome = transactions
+  .filter(item => item.type === 'income')
+  .reduce((total, item) => total + item.amount, 0);
+
+const totalExpense = transactions
+  .filter(item => item.type === 'expense')
+  .reduce((total, item) => total + item.amount, 0);
+
+const totalAmount = totalIncome - totalExpense;
+
+// Row combining columns A, B, C for Income, Expense, and Total
+const incomeRow = `Income\t\t\t${totalIncome}\t\t\t\t\t`;
+const expenseRow = `Expense\t\t\t${totalExpense}\t\t\t\t\t`;
+const totalRow = `Total\t\t\t${totalAmount}\t\t\t\t\t`;
+
+// Create a timestamp for the filename (current date) with hyphens
+const currentDate = new Date();
+const formattedDateStamp = currentDate.toISOString().split('T')[0];
+
+// Combine header, data, and total rows
+const content = `${header}\n${formattedData.join('\n')}\n${incomeRow}\n${expenseRow}\n${totalRow}`;
+
+// Append date to the filename with hyphens
+const fileName = `transactions_${formattedDateStamp}.txt`;
+
+const contentType = "text/plain";
+
+downloadToFile(content, fileName, contentType);
+}
+
+function downloadToFile(content, filename, contentType) {
+  const a = document.createElement("a");
+  const file = new Blob([content], { type: contentType });
+
+  a.href = URL.createObjectURL(file);
+  a.download = filename;
+  a.click();
+
+  URL.revokeObjectURL(a.href);
+}
